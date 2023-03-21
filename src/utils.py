@@ -94,5 +94,5 @@ def update_github_repo_secret(repo, github_token, secret_records):
             'key_id': public_key_info['key_id']
         }
         resp = requests.put(url + k, headers=request_headers, json=data)
-        if resp.status_code != 201:
+        if resp.status_code >= 400:
             raise Exception(f'Failed to update secret: {resp.status_code} {resp.text}')
