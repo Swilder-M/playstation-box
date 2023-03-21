@@ -4,8 +4,6 @@
   <p align="center">Update a pinned gist to contain your PlayStation stats</p>
 </p>
 
----
-
 ## Setup
 
 ### Preparation
