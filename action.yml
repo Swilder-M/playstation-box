@@ -1,5 +1,5 @@
 name: "playstation-box"
-description: "Update a pinned gist to contain playstation game stats"
+description: "Update a pinned gist to contain PlayStation stats"
 branding:
   icon: "flag"
   color: "yellow"
