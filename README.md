@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://gist.github.com/Swilder-M/441f57c231581fca04fb569fda82ec91"><img width="400" src="https://raw.githubusercontent.com/Swilder-M/playstation-box/master/assets/pinned.png"></a>
-  <h3 align="center">playstation-box</h3>
+  <h3 align="center">🎮 playstation-box</h3>
   <p align="center">Update a pinned gist to contain your PlayStation stats</p>
 </p>
 
