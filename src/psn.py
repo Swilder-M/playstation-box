@@ -31,6 +31,9 @@ class PSN:
             self.access_token = access_token
             self.refresh_token = refresh_token
 
+        if not self.check_access_token():
+            raise Exception('Failed to get access token')
+
     def requester(self, method, api, **kwargs):
         headers = kwargs.get('headers', {})
         if not headers.get('Authorization'):
@@ -73,7 +76,7 @@ class PSN:
         }
         resp = self.requester(method='GET', api='userProfile/v1/users/me/profile2', params=params)
         if resp.status_code == 200:
-            record = resp.json()
+            record = resp.json()['profile']
             self.user_name = record['onlineId']
             self.account_id = record['accountId']
             return True
