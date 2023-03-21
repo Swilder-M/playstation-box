@@ -116,7 +116,7 @@ class PSN:
         resp = self.requester(method='GET', api='oauth/authorize',
                               params=params, cookies=cookies, allow_redirects=False)
         if resp.status_code != 302:
-            raise Exception('Invalid npsso code')
+            raise Exception('Invalid npsso code, you should get a new one from https://ca.account.sony.com/api/v1/ssocookie')
         code = resp.headers['Location'].split('code=')[1].split('&')[0]
 
         data = {
