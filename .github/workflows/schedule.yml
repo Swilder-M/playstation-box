@@ -15,4 +15,4 @@ jobs:
           PSN_ACCESS_TOKEN: ${{ secrets.PSN_ACCESS_TOKEN }}
           PSN_REFRESH_TOKEN: ${{ secrets.PSN_REFRESH_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GIST_ID: 441f57c231581fca04fb569fda82ec91
+          GIST_ID: ${{ secrets.GIST_ID }}
