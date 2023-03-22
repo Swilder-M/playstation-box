@@ -36,12 +36,14 @@ class PSN:
 
     def requester(self, method, api, **kwargs):
         headers = kwargs.get('headers', {})
-        if not headers.get('Authorization'):
+        if not headers.get('Authorization') and self.access_token:
             headers['Authorization'] = f'Bearer {self.access_token}'
         if not headers.get('Content-Type'):
             headers['Content-Type'] = 'application/json'
         if not headers.get('Accept-Language'):
             headers['Accept-Language'] = self.language
+        if not headers.get('User-Agent'):
+            headers['User-Agent'] = 'PlayStation/21090100 CFNetwork/1126 Darwin/19.5.0'
         kwargs['headers'] = headers
 
         if api.startswith('oauth/'):
@@ -103,8 +105,8 @@ class PSN:
 
     def get_access_token_from_npsso(self):
         if not self.npsso:
-            raise Exception('No npsso code')
-
+            raise Exception('No npsso code, you should get a new one from '
+                            'https://ca.account.sony.com/api/v1/ssocookie')
         params = {
             'access_type': 'offline',
             'client_id': '09515159-7237-4370-9b40-3806e67c0891',
@@ -116,7 +118,8 @@ class PSN:
         resp = self.requester(method='GET', api='oauth/authorize',
                               params=params, cookies=cookies, allow_redirects=False)
         if resp.status_code != 302:
-            raise Exception('Invalid npsso code, you should get a new one from https://ca.account.sony.com/api/v1/ssocookie')
+            raise Exception('Invalid npsso code, you should get a new one from '
+                            'https://ca.account.sony.com/api/v1/ssocookie')
         code = resp.headers['Location'].split('code=')[1].split('&')[0]
 
         data = {
