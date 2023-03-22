@@ -61,9 +61,15 @@ def update_gist(gist_id, github_token, content):
         'Authorization': f'Bearer {github_token}',
         'X-GitHub-Api-Version': '2022-11-28'
     }
+    resp = requests.get(url, headers=headers)
+    if resp.status_code != 200:
+        raise Exception(f'Failed to get gist: {resp.status_code} {resp.text}')
+    gist = resp.json()
+    file_name = list(gist['files'].keys())[0]
     data = {
         'files': {
-            'playstation-box': {
+            file_name: {
+                # 'filename': 'playstation-box',
                 'content': content
             }
         }
