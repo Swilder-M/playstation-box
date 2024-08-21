@@ -13,7 +13,7 @@
    - Expiration: Select Custom and set the expiration date to 1 year. (Ps: You should renew the token every year.)
    - Repository access: Select `Only select repositories` and select the repository you forked.
    - Repository permissions: Enable `Secrets` read and write permissions, the `Metadata` read-only permission.
-   - Account permissions: Enable `Gists` read and write permissions.
+   - Account permissions: Enable `Gists` to read and write permissions.
    - For complete setup reference [here](https://github.com/Swilder-M/playstation-box/blob/master/assets/github-token.png)
 
 4. Sign in to the PlayStation Store at <https://library.playstation.com/recently-purchased>.
