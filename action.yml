@@ -7,7 +7,7 @@ runs:
   using: 'composite'
   steps:
     - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      uses: astral-sh/setup-uv@v9.0.0
     - name: Install Dependencies
       shell: bash
       working-directory: ${{ github.action_path }}
