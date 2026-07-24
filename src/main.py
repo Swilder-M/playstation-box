@@ -2,7 +2,7 @@ import os
 
 from psn import PSN
 from utils import (
-    convert_play_duration, duration_sorter, generate_bar_chart,
+    clean_game_name, convert_play_duration, duration_sorter, generate_bar_chart,
     truncate_strings, update_gist, update_github_repo_secret
 )
 
@@ -33,7 +33,7 @@ if __name__ == '__main__':
             continue
 
         record = {
-            'name': game['name'],
+            'name': clean_game_name(game['name']),
             'playDuration': play_duration,
             'definedTrophiesTotal': sum(trophy_progress['definedTrophies'].values()),
             'earnedTrophiesTotal': sum(trophy_progress['earnedTrophies'].values())

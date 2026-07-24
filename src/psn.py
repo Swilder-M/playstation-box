@@ -1,5 +1,7 @@
 import requests
 
+REQUEST_TIMEOUT = 30
+
 
 class PSN:
     npsso: str = None
@@ -57,6 +59,7 @@ class PSN:
         kwargs['url'] = url
 
         kwargs['method'] = method
+        kwargs.setdefault('timeout', REQUEST_TIMEOUT)
         response = requests.request(**kwargs)
         if api.startswith('oauth/') or api.startswith('userProfile/'):
             return response

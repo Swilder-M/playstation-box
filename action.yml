@@ -10,7 +10,11 @@ runs:
       uses: astral-sh/setup-uv@v5
     - name: Install Dependencies
       shell: bash
+      working-directory: ${{ github.action_path }}
       run: uv sync
     - name: Run
       shell: bash
+      working-directory: ${{ github.action_path }}
+      env:
+        PYTHONUNBUFFERED: 1
       run: uv run python src/main.py

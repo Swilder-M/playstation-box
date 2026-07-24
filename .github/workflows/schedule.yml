@@ -7,9 +7,9 @@ jobs:
   update-gist:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v7
       - name: Update gist
-        uses: Swilder-M/playstation-box@master
+        uses: ./
         env:
           PSN_NPSSO: ${{ secrets.PSN_NPSSO }}
           PSN_ACCESS_TOKEN: ${{ secrets.PSN_ACCESS_TOKEN }}

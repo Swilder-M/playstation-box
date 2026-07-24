@@ -3,6 +3,8 @@ from base64 import b64encode
 import requests
 from nacl import encoding, public
 
+REQUEST_TIMEOUT = 30
+
 
 def convert_play_duration(duration_str):
     if not duration_str:
@@ -54,6 +56,10 @@ def truncate_strings(strings, length):
         return strings
 
 
+def clean_game_name(name):
+    return name.replace('®', '').replace('™', '').strip()
+
+
 def update_gist(gist_id, github_token, content):
     url = f'https://api.github.com/gists/{gist_id}'
     headers = {
@@ -61,7 +67,7 @@ def update_gist(gist_id, github_token, content):
         'Authorization': f'Bearer {github_token}',
         'X-GitHub-Api-Version': '2022-11-28'
     }
-    resp = requests.get(url, headers=headers)
+    resp = requests.get(url, headers=headers, timeout=REQUEST_TIMEOUT)
     if resp.status_code != 200:
         raise Exception(f'Failed to get gist: {resp.status_code} {resp.text}')
     gist = resp.json()
@@ -74,7 +80,7 @@ def update_gist(gist_id, github_token, content):
             }
         }
     }
-    resp = requests.patch(url, headers=headers, json=data)
+    resp = requests.patch(url, headers=headers, json=data, timeout=REQUEST_TIMEOUT)
     if resp.status_code != 200:
         raise Exception(f'Failed to update gist: {resp.status_code} {resp.text}')
 
@@ -87,7 +93,8 @@ def update_github_repo_secret(repo, github_token, secret_records):
     }
     public_key_info = requests.get(
         url=f'https://api.github.com/repos/{repo}/actions/secrets/public-key',
-        headers=request_headers
+        headers=request_headers,
+        timeout=REQUEST_TIMEOUT
     ).json()
     public_key = public.PublicKey(public_key_info['key'].encode('utf-8'), encoding.Base64Encoder())
     sealed_box = public.SealedBox(public_key)
@@ -99,6 +106,6 @@ def update_github_repo_secret(repo, github_token, secret_records):
             'encrypted_value': b64encode(encrypted).decode('utf-8'),
             'key_id': public_key_info['key_id']
         }
-        resp = requests.put(url + k, headers=request_headers, json=data)
+        resp = requests.put(url + k, headers=request_headers, json=data, timeout=REQUEST_TIMEOUT)
         if resp.status_code >= 400:
             raise Exception(f'Failed to update secret: {resp.status_code} {resp.text}')
